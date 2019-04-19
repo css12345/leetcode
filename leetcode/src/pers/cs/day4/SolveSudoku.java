@@ -72,13 +72,26 @@ public class SolveSudoku {
 		Cell cell = needToWrite.get(index);
 		for(Integer num:cell.availableNumbers) {
 			board[cell.x][cell.y] = (char)(num + '0');
-			if(!isValidSudoku(board))
+			if(!isValidSudoku(board,cell.x,cell.y))
 				continue;
 			if(dfs(board, needToWrite, index + 1))
 				return true;
 		}
 		board[cell.x][cell.y] = '.';
 		return false;
+	}
+
+	private boolean isValidSudoku(char[][] board, int x, int y) {
+		if(!judgeRow(board[x]))
+			return false;
+		
+		if(!judgeColumn(board, y))
+			return false;
+		
+		int centerOfX = x / SMALL_ROW * SMALL_ROW + 1,centerOfY = y / SMALL_COLUMN * SMALL_COLUMN + 1;
+		if(!judgeSmallArea(board, centerOfX, centerOfY))
+			return false;
+		return true;
 	}
 
 	private ArrayList<Integer> calculateAvailableNumbers(char[][] board, int x, int y) {
