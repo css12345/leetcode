@@ -17,7 +17,7 @@ public class MinMoneyNum {
 
 	/**
 	 * 不带路径压缩
-	 *
+	 *https://leetcode-cn.com/submissions/detail/21984892/
 	 */
 	public int minMoneyNum(int[] arr, int aim) {
 		if (arr == null || arr.length == 0 || aim <= 0)
@@ -50,33 +50,34 @@ public class MinMoneyNum {
 
 	/**
 	 * 带路径压缩
+	 * https://leetcode-cn.com/submissions/detail/21985048/
 	 */
-	public int minMoneyNumWithCompress(int[] arr, int aim) {
-		if (arr == null || arr.length == 0 || aim <= 0)
+	public int minMoneyNumWithCompress(int[] coins, int amount) {
+		if (coins == null || coins.length == 0 || amount <= 0)
 			return 0;
-		int[] dp = new int[aim + 1];
-		for (int i = 1; i <= aim; i++) {
-			if (i % arr[0] == 0)
-				dp[i] = i / arr[0];
+		int[] dp = new int[amount + 1];
+		for (int i = 1; i <= amount; i++) {
+			if (i % coins[0] == 0)
+				dp[i] = i / coins[0];
 			else
 				dp[i] = Integer.MAX_VALUE;
 		}
 
-		for (int i = 1; i < arr.length; i++) {
-			for (int j = 1; j <= aim; j++) {
-				if (j < arr[i])
+		for (int i = 1; i < coins.length; i++) {
+			for (int j = 1; j <= amount; j++) {
+				if (j < coins[i])
 					continue;
 				else {
-					if (dp[j - arr[i]] == Integer.MAX_VALUE)
+					if (dp[j - coins[i]] == Integer.MAX_VALUE)
 						continue;
 					else
-						dp[j] = Math.min(dp[j], dp[j - arr[i]] + 1);
+						dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
 				}
 			}
 		}
 
-		if (dp[aim] == Integer.MAX_VALUE)
+		if (dp[amount] == Integer.MAX_VALUE)
 			return -1;
-		return dp[aim];
+		return dp[amount];
 	}
 }
