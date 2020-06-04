@@ -40,7 +40,7 @@ public class HappyString {
 			if (indexOfDigits[i] < CHARACTERS.length)
 				continue;
 			
-			//进位，如003->010，222->300
+			//进位，如003->010，223->300
 			indexOfDigits[i] -= CHARACTERS.length;
 			indexOfDigits[i - 1] += 1;
 		}
