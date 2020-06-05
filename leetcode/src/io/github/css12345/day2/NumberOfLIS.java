@@ -2,9 +2,6 @@ package io.github.css12345.day2;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * leetcode 673.最长递增子序列的个数<br>
  * https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/
@@ -45,7 +42,6 @@ public class NumberOfLIS {
 			else {
 				for (int j = 0; j <= i - 1; j++) {
 					if (nums[j] < nums[i] && posInformations[j].length == maxValue) {
-						posInformations[i].lastElements.add(j);
 						posInformations[i].possibles = posInformations[i].possibles + posInformations[j].possibles;
 					}
 				}
@@ -70,8 +66,6 @@ public class NumberOfLIS {
 	private static class PosInformation {
 		//以该位置结尾的最长上升子序列长度
 		int length;
-		// 可以作为前一个元素的下标列表
-		List<Integer> lastElements = new ArrayList<>();
 		//以该位置结尾的最长上升子序列有多少种可能
 		int possibles = 0;
 	}
